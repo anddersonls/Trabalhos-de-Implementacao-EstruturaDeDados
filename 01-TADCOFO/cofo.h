@@ -8,5 +8,6 @@ int cofInsert(Cofo *c, int item);
 int cofRemove(Cofo *c, int key);
 int cofQuery(Cofo *c, int key);
 int cofDestroy(Cofo *c);
+void cofShow(Cofo *c);
 
 #endif

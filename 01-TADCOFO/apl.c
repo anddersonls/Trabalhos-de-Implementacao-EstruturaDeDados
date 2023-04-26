@@ -32,7 +32,8 @@ int main(void)
         printf("|| 3. Inserir um elemento no cofo\n");
         printf("|| 4. Verificar se um elemento está no cofo\n");
         printf("|| 5. Remover um elemento do cofo\n");
-        printf("|| 6 - Sair\n");
+        printf("|| 6. Mostrar itens no cofo\n");
+        printf("|| 7. Sair\n");
         printf("||- Sua escolha: ");
         scanf("%d", &opcao);
 
@@ -106,14 +107,23 @@ int main(void)
             break;
 
         case 6:
+            if (cofoCriado)
+            {
+                cofShow(meuCofo);
+            }
+            else
+            {
+                printf("\nATENÇÃO: antes de utilizar as operações você deve primeireiramente criar um cofo!");
+            }
+            break;
+        case 7:
             printf("\n\nObrigado por utilizar meu programa :) !!\n\n");
             break;
-
         default:
             printf("\n\nAtenção: digite um dígito válido!\n\n");
         }
 
-    } while (opcao != 6);
+    } while (opcao != 7);
 }
 
 // FUNÇÕES AUXILIARES

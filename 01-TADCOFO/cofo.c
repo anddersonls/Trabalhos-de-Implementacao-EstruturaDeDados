@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 #include "cofo.h"
 
 #ifndef _COFO_C_
@@ -144,6 +145,25 @@ int cofRemove(Cofo *c, int key)
         }
     }
     return FALSE;
+}
+
+void cofShow(Cofo *c)
+{
+    setlocale(LC_ALL, "Portuguese_Brazil");
+    if (c != NULL)
+    {
+        if (c->numItens > 0)
+        {
+            for (int i = 0; i < c->numItens; i++)
+            {
+                printf("\nItem %d: %d", i + 1, c->item[i]);
+            }
+        }
+        else
+        {
+            printf("\nNão existe items no cofo para mostrar!");
+        }
+    }
 }
 
 #endif
