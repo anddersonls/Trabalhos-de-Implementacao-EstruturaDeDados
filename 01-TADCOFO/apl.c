@@ -24,7 +24,7 @@ int main(void)
         printf("|| 1. Criar o cofo\n");
         printf("|| 2. Destruir o cofo\n");
         printf("|| 3. Inserir um elemento no cofo\n");
-        printf("|| 4. Verificar se um elemento estÃ¡ no cofo\n");
+        printf("|| 4. Verificar se um elemento está no cofo\n");
         printf("|| 5. Remover um elemento do cofo\n");
         printf("|| 6 - Sair\n");
         printf("||- Sua escolha: ");
@@ -58,16 +58,16 @@ int main(void)
             sucesso = cofDestroy(meuCofo);
             if (sucesso)
             {
-                printf("Cofo DestruÃ­do!");
+                printf("Cofo Destruído!");
                 cofoCriado = FALSE;
             }
             else
             {
-                printf("NÃ£o foi possÃ­vel destruir o cofo, tente novamente!");
+                printf("Não foi possível destruir o cofo, tente novamente!");
             }
             break;
         case 3:
-            printf("Digite o elemento que vocÃª deseja inserir no cofo: ");
+            printf("Digite o elemento que você deseja inserir no cofo: ");
             scanf("%d", &elemento);
             sucesso = cofInsert(meuCofo, elemento);
             if (sucesso)
@@ -76,25 +76,25 @@ int main(void)
             }
             else
             {
-                printf("NÃ£o foi possÃ­vel inserir o elemento %d no cofo!", elemento);
+                printf("Não foi possível inserir o elemento %d no cofo!", elemento);
             }
             break;
         case 4:
-            printf("Digite o elemento que vocÃª deseja saber se estÃ¡ no cofo: ");
+            printf("Digite o elemento que você deseja saber se está no cofo: ");
             scanf("%d", &elemento);
             sucesso = cofQuery(meuCofo, elemento);
             if (sucesso)
             {
-                printf("O elemento &d estÃ¡ no cofo!", elemento);
+                printf("O elemento %d está no cofo!", elemento);
             }
             else
             {
-                printf("O elemento %d nÃ£o estÃ¡ no cofo!", elemento);
+                printf("O elemento %d não está no cofo!", elemento);
             }
             break;
         case 5:
-            printf("Digite o elemento que vocÃª deseja retirar do cofo: ");
-            scanf("%d", elemento);
+            printf("Digite o elemento que você deseja retirar do cofo: ");
+            scanf("%d", &elemento);
             sucesso = cofRemove(meuCofo, elemento);
             if (sucesso)
             {
@@ -102,14 +102,14 @@ int main(void)
             }
             else
             {
-                printf("NÃ£o foi possÃ­vel remover o item do cofo!");
+                printf("Não foi possível remover o item do cofo!");
             }
             break;
         case 6:
             printf("\n\nObrigado por utilizar meu programa :) !!\n\n");
             break;
         default:
-            printf("\n\nAtenÃ§Ã£o: digite um dÃ­gito vÃ¡lido!\n\n");
+            printf("\n\nAtenção: digite um dígito válido!\n\n");
         }
 
     } while (opcao != 6);

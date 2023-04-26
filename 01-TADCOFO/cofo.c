@@ -110,7 +110,6 @@ int cofQuery(Cofo *c, int key)
 int cofRemove(Cofo *c, int key)
 {
     int i, j, status, aux;
-
     if (c != NULL)
     {
         if (c->numItens > 0)
@@ -142,12 +141,9 @@ int cofRemove(Cofo *c, int key)
                 c->numItens--;
                 return TRUE;
             }
-            else
-            {
-                return FALSE;
-            }
         }
     }
+    return FALSE;
 }
 
 #endif
