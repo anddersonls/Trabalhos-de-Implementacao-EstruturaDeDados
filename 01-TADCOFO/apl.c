@@ -10,11 +10,17 @@
 // gcc apl.c cofo.c -o apl
 // ./apl
 
+// DECLARAÇÃO DAS FUNÇÕES AUXILIARES
+int chamaCofDestroy(Cofo *meuCofo);
+void chamaCofInsert(Cofo *meuCofo);
+void chamaCofQuery(Cofo *meuCofo);
+void chamaCofRemove(Cofo *meuCofo);
+
 int main(void)
 {
     setlocale(LC_ALL, "Portuguese_Brazil");
     Cofo *meuCofo;
-    int opcao = 0, cofoCriado = FALSE, sucesso, tamanhoCofo, elemento;
+    int opcao = 0, cofoCriado = FALSE, tamanhoCofo;
 
     do
     {
@@ -41,76 +47,140 @@ int main(void)
                 meuCofo = cofCreate(tamanhoCofo);
                 if (meuCofo != NULL)
                 {
+                    printf("Cofo criado com SUCESSO!");
                     cofoCriado = TRUE;
                 }
                 else
                 {
-                    printf("\nNão foi possível criar seu cofo, tente novamente mais tarde :( !\n");
+                    printf("\nNão foi possível criar seu cofo, tente novamente mais tarde :( !");
                 }
             }
             else
             {
-                printf("\nVocê já possui um cofo criado. Divirta-se com as operações do seu cofo!\n");
+                printf("\nVocê já possui um cofo criado. Divirta-se com as operações do seu cofo!");
             }
-            printf("%d", cofoCriado);
             break;
+
         case 2:
-            sucesso = cofDestroy(meuCofo);
-            if (sucesso)
+            if (cofoCriado)
             {
-                printf("Cofo Destruído!");
-                cofoCriado = FALSE;
+                cofoCriado = chamaCofDestroy(meuCofo);
             }
             else
             {
-                printf("Não foi possível destruir o cofo, tente novamente!");
+                printf("\nATENÇÃO: antes de utilizar as operações você deve primeireiramente criar um cofo!");
             }
             break;
+
         case 3:
-            printf("Digite o elemento que você deseja inserir no cofo: ");
-            scanf("%d", &elemento);
-            sucesso = cofInsert(meuCofo, elemento);
-            if (sucesso)
+            if (cofoCriado)
             {
-                printf("O elemento %d foi inserido com sucesso!", elemento);
+                chamaCofInsert(meuCofo);
             }
             else
             {
-                printf("Não foi possível inserir o elemento %d no cofo!", elemento);
+                printf("\nATENÇÃO: antes de utilizar as operações você deve primeireiramente criar um cofo!");
             }
             break;
+
         case 4:
-            printf("Digite o elemento que você deseja saber se está no cofo: ");
-            scanf("%d", &elemento);
-            sucesso = cofQuery(meuCofo, elemento);
-            if (sucesso)
+            if (cofoCriado)
             {
-                printf("O elemento %d está no cofo!", elemento);
+                chamaCofQuery(meuCofo);
             }
             else
             {
-                printf("O elemento %d não está no cofo!", elemento);
+                printf("\nATENÇÃO: antes de utilizar as operações você deve primeireiramente criar um cofo!");
             }
             break;
+
         case 5:
-            printf("Digite o elemento que você deseja retirar do cofo: ");
-            scanf("%d", &elemento);
-            sucesso = cofRemove(meuCofo, elemento);
-            if (sucesso)
+            if (cofoCriado)
             {
-                printf("Item removido com sucesso!");
+                chamaCofRemove(meuCofo);
             }
             else
             {
-                printf("Não foi possível remover o item do cofo!");
+                printf("\nATENÇÃO: antes de utilizar as operações você deve primeireiramente criar um cofo!");
             }
             break;
+
         case 6:
             printf("\n\nObrigado por utilizar meu programa :) !!\n\n");
             break;
+
         default:
             printf("\n\nAtenção: digite um dígito válido!\n\n");
         }
 
     } while (opcao != 6);
+}
+
+// FUNÇÕES AUXILIARES
+int chamaCofDestroy(Cofo *meuCofo)
+{
+    int sucesso;
+    sucesso = cofDestroy(meuCofo);
+    if (sucesso)
+    {
+        printf("\nCofo Destruído!");
+        return FALSE;
+    }
+    else
+    {
+        printf("\nNão foi possível destruir o cofo, tente novamente!");
+        return TRUE;
+    }
+}
+
+void chamaCofInsert(Cofo *meuCofo)
+{
+    int sucesso, elemento;
+    printf("\nDigite o elemento que você deseja inserir no cofo: ");
+    scanf("%d", &elemento);
+
+    sucesso = cofInsert(meuCofo, elemento);
+    if (sucesso)
+    {
+        printf("\nO elemento %d foi inserido com sucesso!", elemento);
+    }
+    else
+    {
+        printf("\nNão foi possível inserir o elemento %d no cofo!", elemento);
+    }
+}
+
+void chamaCofQuery(Cofo *meuCofo)
+{
+    int elemento, sucesso;
+
+    printf("\nDigite o elemento que você deseja saber se está no cofo: ");
+    scanf("%d", &elemento);
+
+    sucesso = cofQuery(meuCofo, elemento);
+    if (sucesso)
+    {
+        printf("\nO elemento %d está no cofo!", elemento);
+    }
+    else
+    {
+        printf("\nO elemento %d não está no cofo!", elemento);
+    }
+}
+
+void chamaCofRemove(Cofo *meuCofo)
+{
+    int elemento, sucesso;
+
+    printf("\nDigite o elemento que você deseja retirar do cofo: ");
+    scanf("%d", &elemento);
+    sucesso = cofRemove(meuCofo, elemento);
+    if (sucesso)
+    {
+        printf("\nItem removido com sucesso!");
+    }
+    else
+    {
+        printf("\nNão foi possível remover o item do cofo!");
+    }
 }
