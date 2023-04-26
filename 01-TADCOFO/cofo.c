@@ -140,7 +140,11 @@ int cofRemove(Cofo *c, int key)
                 }
 
                 c->numItens--;
-                return aux;
+                return TRUE;
+            }
+            else
+            {
+                return FALSE;
             }
         }
     }
