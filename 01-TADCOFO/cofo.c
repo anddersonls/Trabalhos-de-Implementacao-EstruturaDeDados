@@ -1,3 +1,11 @@
+/*------------------------------------------------
+cofo.c
+Arquivo com a definição das funções do TAD Cofo
+---------------------------------------------------
+Autor: Anderson Lopes Silva
+April/2023
+-------------------------------------------------*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -131,17 +139,28 @@ int cofRemove(Cofo *c, int key)
     return FALSE;
 }
 
-int cofShow(Cofo *c)
+int *cofItems(Cofo *c)
 {
+    // int *itens = (int *)malloc(sizeof(int)*c->numItens);
+
     if (c != NULL && c->numItens > 0)
     {
-        for (int i = 0; i < c->numItens; i++)
+        /*for (int i = 0; i < c->numItens; i++)
         {
-            printf("\nItem %d: %d", i + 1, c->item[i]);
-        }
-        return TRUE;
+            itens[i] = c->item[i];
+        } */
+        return c->item;
     }
     return FALSE;
 }
 
+int cofNumItems(Cofo *c)
+{
+    if (c != NULL && c->numItens > 0)
+    {
+        return c->numItens;
+    }
+
+    return FALSE;
+}
 #endif

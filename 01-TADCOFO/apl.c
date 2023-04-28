@@ -1,3 +1,11 @@
+/*------------------------------------------------
+apl.c
+Arquivo com o menu de acesso às funções do cofo
+---------------------------------------------------
+Autor: Anderson Lopes Silva
+April/2023
+-------------------------------------------------*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -11,19 +19,18 @@
 // ./apl
 
 // DECLARAÇÃO DAS FUNÇÕES AUXILIARES
-int chamaCofCreate(int tamanhoCofo);
-int chamaCofCreate(Cofo *meuCofo);
+Cofo *chamaCofCreate();
 int chamaCofDestroy(Cofo *meuCofo);
 void chamaCofInsert(Cofo *meuCofo);
 void chamaCofQuery(Cofo *meuCofo);
 void chamaCofRemove(Cofo *meuCofo);
-void chamaCofShow(Cofo *meuCofo);
+void chamaCofItems(Cofo *meuCofo);
 
 int main(void)
 {
     setlocale(LC_ALL, "Portuguese_Brazil");
     Cofo *meuCofo;
-    int opcao = 0, cofoCriado = FALSE, tamanhoCofo;
+    int opcao = 0, cofoCriado = FALSE;
 
     do
     {
@@ -45,7 +52,11 @@ int main(void)
         case 1:
             if (cofoCriado == FALSE)
             {
-                meuCofo = chamaCofCreate(tamanhoCofo);
+                meuCofo = chamaCofCreate();
+                if (meuCofo != FALSE)
+                {
+                    cofoCriado = TRUE;
+                }
             }
             else
             {
@@ -100,7 +111,7 @@ int main(void)
         case 6:
             if (cofoCriado)
             {
-                chamaCofShow(meuCofo);
+                chamaCofItems(meuCofo);
             }
             else
             {
@@ -118,21 +129,25 @@ int main(void)
 }
 
 // FUNÇÕES AUXILIARES
-int chamaCofCreate(int tamanhoCofo)
+Cofo *chamaCofCreate()
 {
-    int tamanho;
+    int tamanhoCofo;
+    Cofo *c;
 
     printf("\nVAMOS CRIAR SEU COFO!");
     printf("\nDigite o tamanho do cofo: ");
     scanf("%d", &tamanhoCofo);
-    if (meuCofo != NULL)
+    c = cofCreate(tamanhoCofo);
+
+    if (c != NULL)
     {
         printf("Cofo criado com SUCESSO!");
-        cofoCriado = TRUE;
+        return c;
     }
     else
     {
         printf("\nNão foi possível criar seu cofo, tente novamente mais tarde :( !");
+        return FALSE;
     }
 }
 
@@ -204,12 +219,22 @@ void chamaCofRemove(Cofo *meuCofo)
     }
 }
 
-void chamaCofShow(Cofo *meuCofo)
+void chamaCofItems(Cofo *meuCofo)
 {
-    int sucesso;
-    sucesso = cofShow(meuCofo);
-    if (sucesso == FALSE)
+    int numItens;
+    numItens = cofNumItems(meuCofo);
+
+    if (numItens == FALSE)
     {
         printf("\nNão foi possível mostrar itens do cofo!");
+    }
+    else
+    {
+        int *itens = (int *)malloc(sizeof(int) * numItens);
+        itens = cofItems(meuCofo);
+        for (int i = 0; i < numItens; i++)
+        {
+            printf("\nItem [%d]: %d", i, itens[i]);
+        }
     }
 }
