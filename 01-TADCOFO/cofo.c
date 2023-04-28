@@ -16,7 +16,6 @@ typedef struct _cofo_
     int *item;
 } Cofo;
 
-// retorna o cofo criado
 Cofo *cofCreate(int maxItems)
 {
     Cofo *c;
@@ -31,8 +30,8 @@ Cofo *cofCreate(int maxItems)
 
             if (c->item != NULL)
             {
-                c->numItens = 0;
                 c->maxItens = maxItems;
+                c->numItens = 0;
                 return c;
             }
 
@@ -43,127 +42,106 @@ Cofo *cofCreate(int maxItems)
     return NULL;
 }
 
-// retorna TRUE ou FALSE
 int cofDestroy(Cofo *c)
 {
-    if (c != NULL)
+    if (c != NULL && c->numItens == 0)
     {
-        if (c->numItens == 0)
-        {
-            free(c->item);
-            free(c);
-            return TRUE;
-        }
+        free(c->item);
+        free(c);
+        return TRUE;
     }
 
     return FALSE;
 }
 
-// retorna TRUE ou FALSE
 int cofInsert(Cofo *c, int item)
 {
-    if (c != NULL)
+    if (c != NULL && c->numItens < c->maxItens)
     {
-        if (c->numItens < c->maxItens)
-        {
-            c->item[c->numItens] = item;
-            c->numItens++;
-            return TRUE;
-        }
+        c->item[c->numItens] = item;
+        c->numItens++;
+        return TRUE;
     }
 
     return FALSE;
 }
 
-// retorna TRUE ou FALSE
 int cofQuery(Cofo *c, int key)
 {
     int i, status;
 
-    if (c != NULL)
+    if (c != NULL && c->numItens > 0)
     {
-        if (c->numItens > 0)
+        i = 0;
+        status = FALSE;
+        while (i < c->numItens && status != TRUE)
         {
-            i = 0;
-            status = FALSE;
-            while (i < c->numItens && status != TRUE)
+            if (c->item[i] == key)
             {
-                if (c->item[i] == key)
-                {
-                    status = TRUE;
-                }
-                else
-                {
-                    i++;
-                }
+                status = TRUE;
             }
-            if (status == TRUE)
+            else
             {
-                return TRUE;
+                i++;
             }
+        }
+
+        if (status == TRUE)
+        {
+            return TRUE;
         }
     }
 
     return FALSE;
 }
 
-// retorna o element removido
 int cofRemove(Cofo *c, int key)
 {
-    int i, j, status, aux;
-    if (c != NULL)
+    int i, j, flag;
+    if (c != NULL && c->numItens > 0)
     {
-        if (c->numItens > 0)
+        i = 0;
+        flag = FALSE;
+
+        while (i < c->numItens && flag != TRUE)
         {
-            i = 0;
-            status = FALSE;
-
-            while (i < c->numItens && status != TRUE)
+            if (c->item[i] == key)
             {
-                if (c->item[i] == key)
-                {
-                    status = TRUE;
-                }
-                else
-                {
-                    i++;
-                }
+                flag = TRUE;
             }
-
-            if (status == TRUE)
+            else
             {
-                aux = c->item[i];
-
-                for (j = i; j < c->numItens - 1; j++)
-                {
-                    c->item[j] = c->item[j + 1];
-                }
-
-                c->numItens--;
-                return TRUE;
+                i++;
             }
         }
+
+        if (flag == TRUE)
+        {
+
+            for (j = i; j < c->numItens - 1; j++)
+            {
+                c->item[j] = c->item[j + 1];
+            }
+
+            c->numItens--;
+            return TRUE;
+        }
     }
+
     return FALSE;
 }
 
-void cofShow(Cofo *c)
+int cofShow(Cofo *c)
 {
-    setlocale(LC_ALL, "Portuguese_Brazil");
-    if (c != NULL)
+    if (c != NULL && c->numItens > 0)
     {
-        if (c->numItens > 0)
+        for (int i = 0; i < c->numItens; i++)
         {
-            for (int i = 0; i < c->numItens; i++)
-            {
-                printf("\nItem %d: %d", i + 1, c->item[i]);
-            }
+            printf("\nItem %d: %d", i + 1, c->item[i]);
         }
-        else
-        {
-            printf("\nNão existe items no cofo para mostrar!");
-        }
+        return TRUE;
     }
+    return FALSE;
 }
 
 #endif

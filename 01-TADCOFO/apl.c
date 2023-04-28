@@ -11,10 +11,13 @@
 // ./apl
 
 // DECLARAÇÃO DAS FUNÇÕES AUXILIARES
+int chamaCofCreate(int tamanhoCofo);
+int chamaCofCreate(Cofo *meuCofo);
 int chamaCofDestroy(Cofo *meuCofo);
 void chamaCofInsert(Cofo *meuCofo);
 void chamaCofQuery(Cofo *meuCofo);
 void chamaCofRemove(Cofo *meuCofo);
+void chamaCofShow(Cofo *meuCofo);
 
 int main(void)
 {
@@ -42,19 +45,7 @@ int main(void)
         case 1:
             if (cofoCriado == FALSE)
             {
-                printf("\nVAMOS CRIAR SEU COFO!");
-                printf("\nDigite o tamanho do cofo: ");
-                scanf("%d", &tamanhoCofo);
-                meuCofo = cofCreate(tamanhoCofo);
-                if (meuCofo != NULL)
-                {
-                    printf("Cofo criado com SUCESSO!");
-                    cofoCriado = TRUE;
-                }
-                else
-                {
-                    printf("\nNão foi possível criar seu cofo, tente novamente mais tarde :( !");
-                }
+                meuCofo = chamaCofCreate(tamanhoCofo);
             }
             else
             {
@@ -109,7 +100,7 @@ int main(void)
         case 6:
             if (cofoCriado)
             {
-                cofShow(meuCofo);
+                chamaCofShow(meuCofo);
             }
             else
             {
@@ -127,6 +118,24 @@ int main(void)
 }
 
 // FUNÇÕES AUXILIARES
+int chamaCofCreate(int tamanhoCofo)
+{
+    int tamanho;
+
+    printf("\nVAMOS CRIAR SEU COFO!");
+    printf("\nDigite o tamanho do cofo: ");
+    scanf("%d", &tamanhoCofo);
+    if (meuCofo != NULL)
+    {
+        printf("Cofo criado com SUCESSO!");
+        cofoCriado = TRUE;
+    }
+    else
+    {
+        printf("\nNão foi possível criar seu cofo, tente novamente mais tarde :( !");
+    }
+}
+
 int chamaCofDestroy(Cofo *meuCofo)
 {
     int sucesso;
@@ -192,5 +201,15 @@ void chamaCofRemove(Cofo *meuCofo)
     else
     {
         printf("\nNão foi possível remover o item do cofo!");
+    }
+}
+
+void chamaCofShow(Cofo *meuCofo)
+{
+    int sucesso;
+    sucesso = cofShow(meuCofo);
+    if (sucesso == FALSE)
+    {
+        printf("\nNão foi possível mostrar itens do cofo!");
     }
 }
