@@ -141,14 +141,8 @@ int cofRemove(Cofo *c, int key)
 
 int *cofItems(Cofo *c)
 {
-    // int *itens = (int *)malloc(sizeof(int)*c->numItens);
-
     if (c != NULL && c->numItens > 0)
     {
-        /*for (int i = 0; i < c->numItens; i++)
-        {
-            itens[i] = c->item[i];
-        } */
         return c->item;
     }
     return FALSE;

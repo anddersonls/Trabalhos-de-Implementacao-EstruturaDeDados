@@ -230,11 +230,19 @@ void chamaCofItems(Cofo *meuCofo)
     }
     else
     {
-        int *itens = (int *)malloc(sizeof(int) * numItens);
-        itens = cofItems(meuCofo);
-        for (int i = 0; i < numItens; i++)
+        int *itens;
+        itens = (int *)malloc(sizeof(int) * numItens);
+        if (itens != NULL)
         {
-            printf("\nItem [%d]: %d", i, itens[i]);
+            itens = cofItems(meuCofo);
+            for (int i = 0; i < numItens; i++)
+            {
+                printf("\nItem [%d]: %d", i, itens[i]);
+            }
+        }
+        else
+        {
+            printf("\nNão foi possível mostrar itens do cofo!");
         }
     }
 }
