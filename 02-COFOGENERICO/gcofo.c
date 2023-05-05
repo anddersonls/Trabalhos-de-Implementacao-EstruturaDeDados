@@ -1,5 +1,5 @@
 /*------------------------------------------------
-cofo.c
+gcofo.c
 Arquivo com a definição das funções do TAD Cofo
 Genérico
 ---------------------------------------------------
@@ -128,16 +128,18 @@ void *gcofRemove(gCofo *c, void *key, int (*cmp)(void *, void *))
         {
             i = 0;
             stat = cmp(key, c->item[i]);
-            while (i < c->numItens && stat != TRUE)
+            for (i = 0; i < c->numItens; i++)
             {
-                i++;
                 stat = cmp((void *)key, (void *)c->item[i]);
+                if (stat == TRUE)
+                {
+                    break;
+                }
             }
-            printf("vai retornar n, fofa?", stat);
             if (stat == TRUE)
             {
                 data = c->item[i];
-                for (j = i; j < c->numItens; j++)
+                for (j = i; j < c->numItens - 1; j++)
                 {
                     c->item[j] = c->item[j + 1];
                 }
@@ -145,27 +147,8 @@ void *gcofRemove(gCofo *c, void *key, int (*cmp)(void *, void *))
                 return data;
             }
         }
-        return NULL;
     }
-}
-
-int getNumItens(gCofo *gc)
-{
-    if (gc != NULL)
-    {
-        return gc->numItens;
-    }
-    return FALSE;
-}
-
-int gCofEmpty(gCofo *gc)
-{
-    if (gc != NULL)
-    {
-        gc->numItens = 0;
-        return TRUE;
-    }
-    return FALSE;
+    return NULL;
 }
 
 #endif

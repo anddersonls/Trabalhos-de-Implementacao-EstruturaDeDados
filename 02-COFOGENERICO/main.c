@@ -18,7 +18,7 @@ May/2023
 typedef struct _livro_
 {
     int id;
-    char nome[20];
+    char nome[30];
     float preco;
 } Livro;
 
@@ -28,7 +28,7 @@ void chamaGCofInsert(gCofo *meuCofo);
 void chamaGCofQuery(gCofo *meuCofo);
 void chamaGCofRemove(gCofo *meuCofo);
 void chamaGCofItems(gCofo *meuCofo);
-void chamaGCofEmpty(gCofo *meuCofo);
+void gCofEmpty(gCofo *meuCofo);
 int cmpId(void *a, void *b);
 int cmpNome(void *a, void *b);
 
@@ -45,7 +45,7 @@ int main(void)
         printf("|------------------------------------------------|\n");
         printf("|| 1. Criar o cofo\n");
         printf("|| 2. Inserir um livro no cofo\n");
-        printf("|| 3. Verificar se um livro est√° no cofo\n");
+        printf("|| 3. Verificar se um livro est· no cofo\n");
         printf("|| 4. Mostrar itens no cofo\n");
         printf("|| 5. Remover um livro do cofo\n");
         printf("|| 6. Esvaziar o cofo\n");
@@ -67,7 +67,7 @@ int main(void)
             }
             else
             {
-                printf("\nVoc√™ j√° possui um cofo criado. Divirta-se com as opera√ß√µes do seu cofo!");
+                printf("\nVocÍ j· possui um cofo criado. Divirta-se com as operaÁıes do seu cofo!");
             }
             break;
 
@@ -78,7 +78,7 @@ int main(void)
             }
             else
             {
-                printf("\nATEN√á√ÉO: antes de utilizar as opera√ß√µes voc√™ deve primeireiramente criar um cofo!");
+                printf("\nATEN«√O: antes de utilizar as operaÁıes vocÍ deve primeireiramente criar um cofo!");
             }
             break;
         case 3:
@@ -88,7 +88,7 @@ int main(void)
             }
             else
             {
-                printf("\nATEN√á√ÉO: antes de utilizar as opera√ß√µes voc√™ deve primeireiramente criar um cofo!");
+                printf("\nATEN«√O: antes de utilizar as operaÁıes vocÍ deve primeireiramente criar um cofo!");
             }
             break;
         case 4:
@@ -98,7 +98,7 @@ int main(void)
             }
             else
             {
-                printf("\nATEN√á√ÉO: antes de utilizar as opera√ß√µes voc√™ deve primeireiramente criar um cofo!");
+                printf("\nATEN«√O: antes de utilizar as operaÁıes vocÍ deve primeireiramente criar um cofo!");
             }
             break;
 
@@ -109,18 +109,18 @@ int main(void)
             }
             else
             {
-                printf("\nATEN√á√ÉO: antes de utilizar as opera√ß√µes voc√™ deve primeireiramente criar um cofo!");
+                printf("\nATEN«√O: antes de utilizar as operaÁıes vocÍ deve primeireiramente criar um cofo!");
             }
             break;
 
         case 6:
             if (cofoCriado)
             {
-                chamaGCofEmpty(meuCofo);
+                gCofEmpty(meuCofo);
             }
             else
             {
-                printf("\nATEN√á√ÉO: antes de utilizar as opera√ß√µes voc√™ deve primeireiramente criar um cofo!");
+                printf("\nATEN«√O: antes de utilizar as operaÁıes vocÍ deve primeireiramente criar um cofo!");
             }
             break;
         case 7:
@@ -130,7 +130,7 @@ int main(void)
             }
             else
             {
-                printf("\nATEN√á√ÉO: antes de utilizar as opera√ß√µes voc√™ deve primeireiramente criar um cofo!");
+                printf("\nATEN«√O: antes de utilizar as operaÁıes vocÍ deve primeireiramente criar um cofo!");
             }
             break;
 
@@ -139,7 +139,7 @@ int main(void)
             break;
 
         default:
-            printf("\n\nAten√ß√£o: digite um d√≠gito v√°lido!\n\n");
+            printf("\n\nAtenÁ„o: digite um dÌgito v·lido!\n\n");
         }
 
     } while (opcao != 8);
@@ -162,7 +162,7 @@ gCofo *chamaGCofCreate()
     }
     else
     {
-        printf("\nN√Ø¬ø¬Ωo foi poss√≠vel criar seu cofo, tente novamente mais tarde :( !");
+        printf("\nNÔøΩo foi possÌvel criar seu cofo, tente novamente mais tarde :( !");
         return FALSE;
     }
 }
@@ -173,12 +173,12 @@ int chamaGCofDestroy(gCofo *meuCofo)
     sucesso = gcofDestroy(meuCofo);
     if (sucesso)
     {
-        printf("\nCofo Destru√≠do!");
+        printf("\nCofo DestruÌdo!");
         return FALSE;
     }
     else
     {
-        printf("\nN√£o foi poss√≠vel destruir o cofo!");
+        printf("\nN„o foi possÌvel destruir o cofo!");
         return TRUE;
     }
 }
@@ -190,11 +190,11 @@ void chamaGCofInsert(gCofo *meuCofo)
     if (l != NULL)
     {
         printf("\nDigite o nome do livro: ");
-        scanf("%s", l->nome);
+        scanf("%s", &(l->nome));
         printf("Digite o ID do livro: ");
-        scanf("%d", &l->id);
+        scanf("%d", &(l->id));
         printf("Digite o valor do livro: ");
-        scanf("%f", &l->preco);
+        scanf("%f", &(l->preco));
         sucesso = gcofInsert(meuCofo, (void *)l);
     }
     if (sucesso)
@@ -203,43 +203,34 @@ void chamaGCofInsert(gCofo *meuCofo)
     }
     else
     {
-        printf("\nN√£o foi poss√≠vel adicionar o livro no cofo");
+        printf("\nN„o foi possÌvel adicionar o livro no cofo");
     }
 }
 
 void chamaGCofQuery(gCofo *meuCofo)
 {
-    int cod, opcao;
-    char nome[30];
-    Livro *livro;
-
-    printf("\n|- 1. Procurar livro pelo ID\n");
-    printf("|- 2. Procurar livro pelo nome\n");
-    printf("|-- Sua escolha: ");
-    scanf("%d", &opcao);
-
-    switch (opcao)
+    if (meuCofo->numItens)
     {
-    case 1:
-        printf("\nDigite o ID que voc√™ deseja saber se est√° no cofo: ");
+        int cod;
+        char nome[30];
+        Livro *livro;
+
+        printf("\nDigite o ID que vocÍ deseja saber se est· no cofo: ");
         scanf("%d", &cod);
         livro = (Livro *)gcofQuery(meuCofo, (void *)&cod, cmpId);
-        break;
-    case 2:
-        printf("\nDigite o ID que voc√™ deseja saber se est√° no cofo: ");
-        scanf("%s", nome);
-        livro = (Livro *)gcofQuery(meuCofo, (void *)&nome, cmpId);
-    default:
-        printf("\nDigite um valor v√°lido!");
-    }
 
-    if (livro != NULL)
-    {
-        printf("\nO seguinte livro foi encontrado: \nLivro: %s \nID: %d \nValor: %.2f", livro->nome, livro->id, livro->preco);
+        if (livro != NULL)
+        {
+            printf("\nO seguinte livro foi encontrado: \nLivro: %s \nID: %d \nValor: %.2f", livro->nome, livro->id, livro->preco);
+        }
+        else
+        {
+            printf("\nN„o foi possÌvel encontrar o livro pedido");
+        }
     }
     else
     {
-        printf("\nN√£o foi poss√≠vel encontrar o livro pedido");
+        printf("\nN„o h· livros no cofo para serem removidos!");
     }
 }
 
@@ -248,28 +239,36 @@ void chamaGCofRemove(gCofo *meuCofo)
     int chave;
     Livro *livro;
 
-    printf("\nDigite o ID do livro que voc√™ deseja remover do cofo: ");
-    scanf("%d", &chave);
-
-    livro = (Livro *)gcofRemove(meuCofo, (void *)&chave, cmpId);
-    if (livro != NULL)
+    if (meuCofo->numItens)
     {
-        printf("\nLivro removido do cofo com sucesso!");
+        printf("\nDigite o ID do livro que vocÍ deseja remover do cofo: ");
+
+        scanf("%d", &chave);
+
+        livro = (Livro *)gcofRemove(meuCofo, (void *)(&chave), cmpId);
+        if (livro != NULL)
+        {
+            printf("\nO seguinte livro foi removido: \nLivro: %s \nID: %d \nValor: %.2f", livro->nome, livro->id, livro->preco);
+        }
+        else
+        {
+            printf("\nN„o foi possÌvel remover o livro do cofo!");
+        }
     }
     else
     {
-        printf("\nN√£o foi poss√≠vel remover o livro do cofo!");
+        printf("\nN„o h· livros no cofo para serem removidos!");
     }
 }
 
 void chamaGCofItems(gCofo *meuCofo)
 {
     Livro *livro;
-    if (getNumItens(meuCofo) > 0)
+    if (meuCofo->numItens > 0)
     {
         livro = gcofGetFirst(meuCofo);
         printf("\nNome do Livro: %s \nID: %d \nValor: %.2f\n", livro->nome, livro->id, livro->preco);
-        for (int i = 1; i < getNumItens(meuCofo); i++)
+        for (int i = 1; i < meuCofo->numItens; i++)
         {
             livro = gcofGetNext(meuCofo);
             printf("\nNome do Livro: %s \nID: %d \nValor: %.2f\n", livro->nome, livro->id, livro->preco);
@@ -277,23 +276,28 @@ void chamaGCofItems(gCofo *meuCofo)
     }
     else
     {
-        printf("\nCofo vazio");
+        printf("\nN„o h· livros no cofo para mostrar!");
     }
 }
 
-void chamaGCofEmpty(gCofo *meuCofo)
+void gCofEmpty(gCofo *meuCofo)
 {
-    int sucesso;
-
-    sucesso = gCofEmpty(meuCofo);
-
-    if (sucesso)
+    Livro *livro;
+    if (meuCofo != NULL)
     {
-        printf("\nCofo vazio.\n");
-    }
-    else
-    {
-        printf("\nNao foi poss√≠vel esvaziar o Cofo.\n");
+        if (meuCofo->numItens)
+        {
+            while (meuCofo->numItens > 0)
+            {
+                livro = (Livro *)gcofGetFirst(meuCofo);
+                gcofRemove(meuCofo, (void *)&(livro->id), cmpId);
+            }
+            printf("\nCofo esvaziado!");
+        }
+        else
+        {
+            printf("\nO cofo j· est· vazio!");
+        }
     }
 }
 
@@ -311,22 +315,3 @@ int cmpId(void *a, void *b)
         return FALSE;
     }
 }
-
-int cmpNome(void *a, void *b)
-{
-    Livro *livro = (Livro *)a;
-    char *lnome = (char *)b;
-    printf("\n%s %s", livro->nome, lnome);
-
-    if (strcmp(livro->nome, lnome) == 0)
-    {
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
-}
-
-// arrumar a busca de elemento por nome
-// arrumar remo√ß√£o de livros q n existem

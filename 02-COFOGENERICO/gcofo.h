@@ -1,4 +1,8 @@
-/*---------------------------------------------------
+/*------------------------------------------------
+gcofo.h
+Arquivo com a especificação para o TAD
+Cofo Genérico
+---------------------------------------------------
 Autor: Anderson Lopes Silva
 May/2023
 -------------------------------------------------*/
@@ -11,7 +15,7 @@ typedef struct _gcofo_
     int numItens;
     int maxItens;
     int cur;
-    void **item;
+    void **item; // int *item;
 } gCofo;
 
 gCofo *gcofCreate(int max_itens);
@@ -22,6 +26,5 @@ void *gcofGetFirst(gCofo *gc);
 void *gcofGetNext(gCofo *gc);
 int gcofDestroy(gCofo *gc);
 int getNumItens(gCofo *gc);
-int gCofEmpty(gCofo *gc);
 
 #endif
